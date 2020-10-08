@@ -32,7 +32,7 @@ CREATE TABLE groupp (
 );	
 CREATE TABLE GroupAccount (
     GroupID INT(8) NOT NULL,
-    AccountID INT(8) PRIMARY KEY NOT NULL,
+    AccountID INT(8) NOT NULL,
     JoinDate DATE NOT NULL,
     FOREIGN KEY (GroupID)
         REFERENCES groupp (GroupID),
@@ -97,7 +97,7 @@ Insert data vào 11 table, mỗi table có ít nhất 5 records*/
 INSERT INTO Department(DepartmentName) VALUES("Marketing"),("DEV"),('ENGI'),('TRANSL'),('PM');
 INSERT INTO Positions(PositionName) VALUES("Leader"),("Basic"),('med'),('high'),('master');
 INSERT INTO Account(Email,Username,FuLLname,DepartmentID,PositionID,CreateDate) 
-VALUES				("svgg@gmail.com","svgg",'nguyen nguyet ke',1,1,'3000/11/10'),
+VALUES				("svgg@gmail.com","svgg",'nguyen nguyetasdasdgqf ke',3,1,'3000/11/10'),
 					("nfghgft@gmail.com",'nfghgft','vong nguyet que',2,3,'2000/10/20'),
 					('2y2bg@gmail.com','2y2bg','nguy kieu vi',3,5,'2400/10/12'),
 					('fhgke54@gmail.com','fhgke54','hoangti',3,2,'2003/10/30'),
@@ -113,11 +113,42 @@ INSERT INTO GroupAccount(GroupID,AccountID,JoinDate)	 VALUES (1,1,'2020/5/25'),
 																(3,3,'2008/12/01'),
 																(4,4,'2010/04/15'),
 																(5,5,'2022/12/24');
+ INSERT INTO GroupAccount(GroupID,AccountID,JoinDate)	 VALUES (1,2,'2020/5/25'),
+																(2,4,'2014/12/12'),
+																(3,3,'2008/12/01'),
+																(4,5,'2010/04/15'),
+																(5,4,'2022/12/24');                                                               
 INSERT INTO TypeQuestion (TypeName) VALUES	('tree'),
 											('root'),
                                             ('leaf'),
                                             ('flower'),
                                             ('fruit');
+INSERT INTO CatagoryQuestion (CatagoryName) VALUES	('trac nghiem'),
+											('tu luan'),
+                                            ('ca hai'),
+                                            ('bai tap lon'),
+                                            ('kiem tra');                                            
+INSERT INTO Question (Content,CategoryID,TypeID,CreatorID,CreateDate) VALUES	('Question 1: Thêm ít nhất 10 record vào mỗi table',1,1,12,'2020/10/12'),
+																				('Question 2: Thêm ít nhất 10 record vào mỗi table',2,3,10,'2020/12/01'),
+																				('Question 3:  10 record vào mỗi table',1,2,3,'2019/12/01'),
+																				('Question 4:  50 record vào mỗi table',4,3,2,'2016/12/01'),
+																				('Question 5:  50 record vào mỗi table',5,3,2,'2016/12/01');                                            
+INSERT INTO Answer (Content,QuestionID,isCorret) VALUES ('SELECT  FROM	Department',1,TRUE),
+														 ('SELECT  FROMasdDepartment',2,FALSE),
+                                                          ('SELECT  asdw',3,TRUE),
+                                                           ('SELECT  156',4,TRUE),
+                                                           ('SELECT  124',5,TRUE);
+INSERT INTO Exam  (Code,Title,CatagoryID,Duration,CreatorID,CreateDate) VALUES	(123,'easy exam',1,60,2000,'2000/10/02'),
+																				(214,' exam',2,120,2000,'2021/10/02'),
+                                                                                (512,'med exam',3,240,2000,'2020/10/02'),
+                                                                                (614,'cpu exam',4,350,2000,'2019/10/02'),
+                                                                                (123,'dev exam',5,220,2000,'2010/10/02');
+INSERT INTO ExamQuestion(ExamID,QuestionID) VALUES(1,2),
+												(2,3),
+                                                (4,3),
+                                                (3,5),
+                                                (5,1);
+                             
 /*assignment 3
 Question 1: Thêm ít nhất 10 record vào mỗi table*/
 /*Question 2: lấy ra tất cả các phòng ban*/
@@ -144,7 +175,6 @@ SELECT     GroupName
 FROM	groupp
 WHERE	DATEDIFF(CreateDate, '2019/12/20') <= 0;
 /*Question 7: Lấy ra ID của question có >= 4 câu trả lời*/
-/*----select bi loi syntax ma em ko biet tai sao?----*/
 SELECT QuestionID
 FROM	Question
 WHERE	(SELECT COUNT(AnswerID)
@@ -226,7 +256,7 @@ INNER JOIN CatagoryQuestion cq ON q1.CategoryID= cq.CatagoryID
 GROUP BY q1.CategoryID;
 /*Question 7: Thông kê mỗi Question được sử dụng trong bao nhiêu Exam*/
 SELECT ExamID,Count(QuestionID)
-FROM ExamQuestion
+a
 GROUP BY ExamID;
 /*Question 8: Lấy ra Question có nhiều câu trả lời nhất*/
 SELECT QuestionID,Count(AnswerID)
@@ -329,3 +359,4 @@ INNER JOIN (SELECT GroupID, Count(AccountID)
 			FROM GroupAccount
             GROUP BY GroupID
             HAVING Count(AccountID)<7) ac ON gg.GroupID=ac.GroupID;
+            
